@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="first-section">
+    <section class="">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -10,18 +10,29 @@
               <div class="line-dec"></div>
               <!-- <span>让每个商家都有大众能看到的潮品 &amp; </span> -->
               <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span>
-              <div>code is :{{ code }}</div>
-              <div>state is :{{ state }}</div>
+              <!-- <div>code is :{{ code }}</div>
+              <div>state is :{{ state }}</div> -->
 
-              <div id="app">
+              <!-- <div id="app">
                 <el-button type="primary" @click="show">主要按钮</el-button>
                 <el-button type="success">成功按钮</el-button>
                 <el-button type="info">信息按钮</el-button>
                 <el-button type="warning">警告按钮</el-button>
                 <el-button type="danger">危险按钮</el-button>
-              </div>
+              </div> -->
+              
             </div>
           </div>
+        </div>
+
+        <div>
+        
+
+          <el-row>
+            <el-col :span="8" :md="4" :sm="12"><div class="base-grid-content grid-content"></div></el-col>
+            <el-col :span="8" :md="4" :sm="12"><div class="base-grid-content grid-content1">  <el-button type="primary" @click="show">主要按钮</el-button></div></el-col>
+            <el-col :span="8" :md="4" :sm="12"><div class="base-grid-content grid-content2"></div></el-col>
+          </el-row>
         </div>
       </div>
     </section>
@@ -33,6 +44,10 @@
 @import "../../assets/css/bootstrap-theme.min.css";
 @import "../../assets/css/fontAwesome.css";
 @import "../../assets/css/tooplate-style.css";
+.base-grid-content{ height: 100px;margin-top: 300px;text-align: center; vertical-align: middle;}
+.grid-content{background-color: aquamarine; }
+.grid-content1{background-color:black;   }
+.grid-content2{background-color:blueviolet; }
 </style>
 
 
@@ -72,14 +87,11 @@ export default {
   },
   computed: {},
   methods: {
-    show()
-    {
-      
-     this.$toast.top('top');
-     this.$toast.center('center');
-     this.$toast('bottom');
-     this.$loading('loading...');
-     
+    show() {
+      this.$toast.top("top");
+      this.$toast.center("center");
+      this.$toast("bottom");
+      this.$loading("loading...");
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
