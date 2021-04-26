@@ -20,6 +20,7 @@ Vue.use(Router)
 const routes = [
     // {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
     {path: '/index',name: '觅食',component: imp('views/index'),meta:{r: true}},
+    {path: '/share',name: '觅食',component: imp('views/share'),meta:{r: true}},
     {
         component: layout,
         path: '/home',
@@ -50,7 +51,7 @@ router.beforeEach((to, from, next) => {
         if(store.getters.getInfo){
             next();
         }else{
-            next({path: '/index'})  //默认页面
+            next({path: '/share'})  //默认页面
         }
     }else{
         next();

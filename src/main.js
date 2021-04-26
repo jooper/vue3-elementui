@@ -23,9 +23,15 @@ Vue.use(ElementUI);
 // import waves from '@pon/directive/waves'
 
 // toast提示
-// import Toast from 'vue2-toast';
-// import 'vue2-toast/lib/toast.css';
-// Vue.use(Toast);
+import Toast from 'vue2-toast';
+import 'vue2-toast/lib/toast.css';
+// Vue.use(Toast)
+Vue.use(Toast, {
+    type: 'center',
+    duration: 3000,
+    wordWrap: true,
+    width: '150px'
+});
 
 Vue.config.productionTip = false
 
