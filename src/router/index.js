@@ -18,7 +18,8 @@ const imp = ((path,url) =>{
 Vue.use(Router)
 
 const routes = [
-    {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
+    // {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
+    {path: '/login',name: '登录',component: imp('views/index'),meta:{r: true}},
     {
         component: layout,
         path: '/home',

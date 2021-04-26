@@ -11,6 +11,9 @@ import '@js/index.js'
 import element from '@js/element'
 Vue.use(element)
 
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+
 // 水波纹
 import waves from '@pon/directive/waves'
 
