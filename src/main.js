@@ -19,6 +19,12 @@ Vue.use(element)
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 
+
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+Vue.use(VideoPlayer)
+
 // 水波纹
 // import waves from '@pon/directive/waves'
 
