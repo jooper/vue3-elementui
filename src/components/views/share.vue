@@ -127,6 +127,7 @@ export default {
       this.$toast.center("center");
       this.$toast("bottom");
       this.$loading("loading...");
+      // this.playerOptions['sources'][0]['src'] = '接口地址';更换视频地址
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
