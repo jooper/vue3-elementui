@@ -7,6 +7,11 @@ import store from '@js/store'
 import '@styl/app.styl'
 import '@js/index.js'
 
+import './assets/css/bootstrap.min.css'
+import './assets/css/bootstrap-theme.min.css'
+import './assets/css/fontAwesome.css'
+import './assets/css/tooplate-style.css'
+
 // 按需引入组件
 import element from '@js/element'
 Vue.use(element)

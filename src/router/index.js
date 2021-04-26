@@ -19,7 +19,7 @@ Vue.use(Router)
 
 const routes = [
     // {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
-    {path: '/login',name: '登录',component: imp('views/index'),meta:{r: true}},
+    {path: '/index',name: '觅食',component: imp('views/index'),meta:{r: true}},
     {
         component: layout,
         path: '/home',
@@ -50,13 +50,13 @@ router.beforeEach((to, from, next) => {
         if(store.getters.getInfo){
             next();
         }else{
-            next({path: '/login'})
+            next({path: '/index'})  //默认页面
         }
     }else{
         next();
     }
     if(to.name){
-        document.title = to.name + '-' + '后台管理系统'
+        document.title = to.name + '-' + '传递身边美好的味道！'
     }
 })
 

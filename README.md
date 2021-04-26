@@ -31,3 +31,6 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+vscode://vscode.github-authentication/did-authenticate?windowid=6&code=d56622b1147ccd9748ea&state=f0d9a434-4a30-47dc-b94c-058e6a08da26
