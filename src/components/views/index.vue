@@ -1,13 +1,4 @@
 <template>
-<!-- <head>
-      <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-        <title>觅食-传递身边美好的味道！</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-</head> -->
   <div>    
         <section class="first-section">
           <div class="container">
