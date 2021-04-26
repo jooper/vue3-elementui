@@ -40,7 +40,7 @@ p {
 	background-size: cover;
 	width: 100%;
 	background-repeat: no-repeat;
-	padding: 15% 0px 15% 0px;
+	padding: 8% 0px 25% 0px;
 }
 
 .first-section .text-content {
@@ -75,7 +75,7 @@ p {
 =======================*/
 
 .second-section {
-	padding: 100px 0px;
+	padding: 30px 0px;
 }
 
 .second-section .service-item {
