@@ -10,6 +10,8 @@
                   <div class="line-dec"></div>
                   <!-- <span>让每个商家都有大众能看到的潮品 &amp; </span> -->               
                   <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span>
+                  <div>code is :{{code}}</div>
+                  <div>state is :{{state}}</div>
                 </div>
               </div>
             </div>
@@ -210,3 +212,69 @@
 @import '../../assets/css/fontAwesome.css';
 @import '../../assets/css/tooplate-style.css'; 
 </style>
+
+
+<script>
+    import md5 from 'js-md5'
+    import { mapGetters } from 'vuex'
+    import utils from '../../assets/js/utils'
+    export default {
+        components: {
+
+        },
+        data () {
+            return {
+                code:'',
+                state:'',
+                ruleForm: {
+                    userName: null,
+                    password: null
+                },
+                rules: {
+                    userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                },
+                loading: false,
+                getInfoes: {
+                    userName: null,
+                    loginIp: '192.168.2.45',
+                    loginTime: Date.now(),
+                    ipAddr: '亚洲'
+                }
+            }
+        },
+        mounted(){
+            if(this.getInfo&&(/^\/login$/).test(this.$route.path)){
+                this.$link('/home')
+            }
+            // this.Id = this.$route.query.code;
+            this.code=utils.getUrlKey('code');
+            this.state=utils.getUrlKey('state');
+            console.log('code:'+this.code);
+            console.log('state:'+this.state);
+        },
+        computed: {
+            ...mapGetters(['getInfo'])             
+        },
+        methods:{         
+            submitForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if(valid){
+                        this.loading = true;
+                        this.ruleForm.password = md5(this.ruleForm.password);
+                        // 以下仅本地测试
+                        this.getInfoes.userName = this.ruleForm.userName;
+                        this.$setItem('getInfo', this.getInfoes);
+                        this.$store.commit('SET_GETINFO', this.getInfoes);
+                        this.loading = false;
+                        this.$link('/home');
+
+                    }else{
+                        this.loading = false;
+                        return false;
+                    }
+                });
+            }
+        }
+    }
+</script>
