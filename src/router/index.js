@@ -21,6 +21,7 @@ const routes = [
     // {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
     {path: '/index',name: '觅食',component: imp('views/index'),meta:{r: true}},
     {path: '/share',name: '觅食',component: imp('views/share'),meta:{r: true}},
+    {path: '/dataShare',name: '我的大数据之家',component: imp('views/dataShare'),meta:{r: true}},
     {
         component: layout,
         path: '/home',
@@ -51,13 +52,13 @@ router.beforeEach((to, from, next) => {
         if(store.getters.getInfo){
             next();
         }else{
-            next({path: '/share'})  //默认页面
+            next({path: '/dataShare'})  //默认页面
         }
     }else{
         next();
     }
     if(to.name){
-        document.title = to.name + '-' + '传递身边美好的味道！'
+        // document.title = to.name + '-' + '传递身边美好的味道！'
     }
 })
 

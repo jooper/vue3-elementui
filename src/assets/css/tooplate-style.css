@@ -43,6 +43,14 @@ p {
 	padding: 10% 0px 20% 0px;
 }
 
+.first-section-bg {
+	background-image: url(../img/bigdata.jpg);
+	background-size: cover;
+	width: 100%;
+	background-repeat: no-repeat;
+	padding: 10% 0px 20% 0px;
+}
+
 .first-section .text-content {
 	text-align: right;
 	color: #fff;
@@ -420,7 +428,8 @@ footer em {
 }
 
 footer a {
-	color: #fff;
+	color: 	#FF4500;
+	 /* #fff; */
 }
 
 footer a:hover {
@@ -653,8 +662,10 @@ footer a:hover {
 
 	.second-section {
 		padding: 0px 0px 0px 0px;
-		margin: -10px 1px 0px 0px;
+		/* margin: -10px 1px 0px 0px; */
+		margin: 3px 1px 0px 0px;
 	}
+
 
 	.second-section .service-item {
 		margin-bottom: 50px;
