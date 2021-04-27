@@ -20,7 +20,7 @@ Vue.use(Router)
 const routes = [
     // {path: '/login',name: '登录',component: imp('login',1),meta:{r: true}},
     {path: '/index',name: '觅食',component: imp('views/index'),meta:{r: true}},
-    {path: '/share',name: '觅食',component: imp('views/share'),meta:{r: true}},
+    {path: '/share',name: '觅食',component: imp('views/share'),meta:{r: true}},    
     {path: '/dataShare',name: '我的大数据之家',component: imp('views/dataShare'),meta:{r: true}},
     {
         component: layout,
@@ -42,6 +42,7 @@ const routes = [
 ]
 
 const router = new Router({
+    mode: 'history',
     routes,
     linkActiveClass: 'active',
     linkExactActiveClass: 'active'

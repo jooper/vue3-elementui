@@ -139,9 +139,8 @@ module.exports = {
             }
         };
     },
-    devServer: {
-        host: "127.0.0.1",
-        // host: "192.168.1.105",
+    devServer: {        
+        host: "192.168.1.105",
         // host: "192.168.50.119",
         port: 8080,
         https: false,
