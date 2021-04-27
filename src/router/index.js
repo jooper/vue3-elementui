@@ -42,7 +42,8 @@ const routes = [
 ]
 
 const router = new Router({
-    mode: 'history',
+    // mode: 'history',
+    // base: '/platform',
     routes,
     linkActiveClass: 'active',
     linkExactActiveClass: 'active'
