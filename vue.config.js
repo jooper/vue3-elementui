@@ -26,7 +26,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
     //打本地包
 	publicPath: process.env.NODE_ENV === "production" ? "./" : "/", 
-    
+    // publicPath: process.env.NODE_ENV === "production" ? "/" : "/", 
     //打线上包
 	// publicPath: process.env.NODE_ENV === "production" ? `https://images.24uvm.com/admin/${distTime}/` : "/", 
 	outputDir: `dist/${ distTime }`,
@@ -34,6 +34,7 @@ module.exports = {
 	filenameHashing: false,
 	lintOnSave: false,
     productionSourceMap: false,
+    runtimeCompiler: true, //关键点在这  
     // css配置项(没有则不用配置)
     // css: {
     //     loaderOptions: {
