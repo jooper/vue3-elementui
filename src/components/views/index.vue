@@ -10,8 +10,8 @@
                   <div class="line-dec"></div>
                   <!-- <span>让每个商家都有大众能看到的潮品 &amp; </span> -->               
                   <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span>
-                  <div>code is :{{code}}</div>
-                  <div>state is :{{state}}</div>
+                  <!-- <div>code is :{{code}}</div>
+                  <div>state is :{{state}}</div> -->
                 </div>
               </div>
             </div>
@@ -198,7 +198,8 @@
                 <ul>
                   <li style="color:white">微信：jootey</li>
                 </ul>
-                <p>Copyright &copy; 2021  | 蜀ICP备2021008995号-1 | 狸猫互动科技成都有限公司</p>
+                <!-- <p>Copyright &copy; 2021  | 蜀ICP备2021008995号-1 | 狸猫互动科技成都有限公司</p> -->
+                <p>Copyright &copy; 2021  | 蜀ICP备2021008995号-1</p>
               </div>
             </div>
           </div>
