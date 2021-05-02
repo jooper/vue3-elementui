@@ -81,7 +81,8 @@ export const get = ((url, param) =>{
                 nd+=val[0]+'='+val[1]+'&'
             }
         });
-        url = url+nd.replace(/&$/,'');
+        // url = url+nd.replace(/&$/,'');
+        url = url +param;
     }
     return request({url: url, method: 'get'})
 })

@@ -6,12 +6,12 @@ import { post, get, setItem, getItem, remItem } from './com'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-	state: {
-        getInfo: getItem('getInfo')?getItem('getInfo'):null,
-        menuList: getItem('menuList')?getItem('menuList'):null,
-        bgColor: getItem('bgColor')?getItem('bgColor'):'#515a6e'
-	},
-	mutations: {
+    state: {
+        // getInfo: getItem('getInfo') ? getItem('getInfo') : null,
+        // menuList: getItem('menuList') ? getItem('menuList') : null,
+        // bgColor: getItem('bgColor') ? getItem('bgColor') : '#515a6e'
+    },
+    mutations: {
         SET_GETINFO: (state, getInfo) => {
             state.getInfo = getInfo;
         },
@@ -21,20 +21,37 @@ const store = new Vuex.Store({
         SET_MENULIST: (state, menuList) => {
             state.menuList = menuList;
         }
-	},
-    getters:{
+    },
+    getters: {
         getInfo: state => state.getInfo,
         menuList: state => state.menuList,
         bgColor: state => state.bgColor
     },
     actions: {
         // 账户登录
+        accessToken({ commit }, code) {
+            return new Promise((resolve, reject) => {
+                get('app/code/accessToken?code=', code).then(res => {
+                    if (res && res.message == "success") {
+                        setItem('access_token', res.data.access_token);
+                        setItem('open_id', res.data.open_id);
+                        setItem('refresh_token', res.data.refresh_token);
+                        setItem('scope', res.data.scope);                
+                        // commit('SET_GETINFO', res.resObj);
+                    }
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+        // 账户登录
         Login({ commit }, userInfo) {
             return new Promise((resolve, reject) => {
                 post('user/login', userInfo).then(res => {
-                    if(res&&res.resCode==1){
-                        setItem('getInfo',res.resObj);
-                        commit('SET_GETINFO',res.resObj);
+                    if (res && res.resCode == 1) {
+                        setItem('getInfo', res.resObj);
+                        commit('SET_GETINFO', res.resObj);
                     }
                     resolve(res)
                 }).catch(error => {
@@ -46,9 +63,9 @@ const store = new Vuex.Store({
         MenuList({ commit }, id) {
             return new Promise((resolve, reject) => {
                 post('user/listMenu', id).then(res => {
-                    if(res&&res.resCode==1){
-                        setItem('menuList',res.resObj);
-                        commit('SET_MENULIST',res.resObj);
+                    if (res && res.resCode == 1) {
+                        setItem('menuList', res.resObj);
+                        commit('SET_MENULIST', res.resObj);
                     }
                     resolve(res)
                 }).catch(error => {

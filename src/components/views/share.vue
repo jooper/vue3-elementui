@@ -5,12 +5,8 @@
       <el-col :span="24">
         <div style="margin-top: 30px">
           <el-row>
-            <el-col :span="4" :offset="1"> 
-              <el-avatar
-                shape="square"
-                :size="80"  
-                :src="url"
-              ></el-avatar>
+            <el-col :span="4" :offset="1">
+              <el-avatar shape="square" :size="80" :src="url"></el-avatar>
             </el-col>
             <el-col :span="16" :offset="2">
               <div>
@@ -37,7 +33,7 @@
           <div style="padding: 20px 15px" class="content">
             <h4 v-text="active_title"></h4>
             <p>
-              {{activeContent}}
+              {{ activeContent }}
             </p>
           </div>
         </div>
@@ -64,12 +60,16 @@
     <el-row class="footer">
       <el-col :span="24">
         <center>
-        <div>
-          <img src="../../assets/img/logo.png" class="platlog" @click="toGw"/>
-          <!-- <h4><font style="color: red">觅</font>食</h4> -->
-          <!-- <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span> -->
-          <!-- <div>code:{{ code }}-state:{{ state }}</div> -->
-        </div>
+          <div>
+            <img
+              src="../../assets/img/logo.png"
+              class="platlog"
+              @click="toHome"
+            />
+            <!-- <h4><font style="color: red">觅</font>食</h4> -->
+            <!-- <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span> -->
+            <!-- <div>code:{{ code }}-state:{{ state }}</div> -->
+          </div>
         </center>
       </el-col>
     </el-row>
@@ -85,27 +85,27 @@
 @import "../../assets/css/fontAwesome.css";
 @import "../../assets/css/tooplate-style.css";
 
-.platlog{
+.platlog {
   width: 50px;
   height: 50px;
 }
-.content{
-    background-color:rgb(253, 253, 253);
-       opacity: 0.8;
+.content {
+  background-color: rgb(253, 253, 253);
+  opacity: 0.8;
 }
 .header-bg-color {
-  background-color:  rgb(22, 24, 35);
+  background-color: rgb(22, 24, 35);
 }
 
-.footer h4{
+.footer h4 {
   margin-top: -15px;
-  font-size:9;
+  font-size: 9;
 }
-.footer img{
-   opacity: 0.1;
+.footer img {
+  opacity: 0.1;
 }
 .commcolor {
-  border-color:  rgb(22, 24, 35);
+  border-color: rgb(22, 24, 35);
   background-color: rgb(22, 24, 35);
   border-color: rgb(22, 24, 35);
 }
@@ -185,13 +185,15 @@ export default {
   components: {},
   data() {
     return {
-      url:"http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
-      url2: '../../assets/img/spark.jpg',
-      shop_name:"春哥新派铁板烧",
-      shop_desc:"铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
-      active_title:"商家优惠信息",
-      activeContent:"点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
+      url: "http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
+      url2: "../../assets/img/spark.jpg",
+      shop_name: "春哥新派铁板烧",
+      shop_desc: "铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
+      active_title: "商家优惠信息",
+      activeContent:
+        "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
       name: "BusImg",
+      accessTk:"",
       code: "",
       state: "",
       loading: false,
@@ -209,8 +211,8 @@ export default {
           {
             type: "",
             // src: "http://vjs.zencdn.net/v/oceans.mp4", //url地址
-            src:"http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
-              // "https://wds-service-1258344699.file.myqcloud.com/20/5771/mp4/161828221577098f7258cda150095.mp4",
+            src: "http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
+            // "https://wds-service-1258344699.file.myqcloud.com/20/5771/mp4/161828221577098f7258cda150095.mp4",
             // src: "" //url地址
           },
         ],
@@ -228,18 +230,38 @@ export default {
     };
   },
   mounted() {
-      // document.title = "xxx";
+    this.loading = false;
+    // document.title = "xxx";
     this.code = utils.getUrlKey("code");
     this.state = utils.getUrlKey("state");
     console.log("code:" + this.code);
     console.log("state:" + this.state);
-  },
-  computed: {
 
+    this.$store
+      .dispatch("accessToken", this.code )
+      .then((res) => {
+        if (res && res.message == "success") {
+          this.$toast.center("授权成功");
+          this.loading = false;
+          this.accessTk=this.$getItem('access_token');
+          // this.$store
+            // .dispatch("MenuList", { userId: res.resObj.userId })
+            // .then((res) => {});
+          // this.$link("/home");
+        } else {
+          this.loading = false;
+          return false;
+        }
+      })
+      .catch((res) => {
+        this.loading = false;
+      });
   },
+  computed: {},
   methods: {
-    toGw(){
-       this.$router.push("/index")
+    toHome() {
+      this.$router.push("/index");
+      // this.$link("/index");
     },
     show() {
       this.$toast.top("top");
@@ -251,7 +273,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          // this.loading = true;
           this.ruleForm.password = md5(this.ruleForm.password);
           // 以下仅本地测试
           this.getInfoes.userName = this.ruleForm.userName;
