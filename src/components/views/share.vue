@@ -6,7 +6,7 @@
         <div style="margin-top: 30px">
           <el-row>
             <el-col :span="4" :offset="1">
-              <el-avatar shape="square" :size="80" :src="url"></el-avatar>
+              <el-avatar shape="square" :size="80" :src="enterpriseLogoUrl"></el-avatar>
             </el-col>
             <el-col :span="16" :offset="2">
               <div>
@@ -18,7 +18,7 @@
         </div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" style="margin-top: -20px">
+    <el-row :gutter="20" style="margin-top: -20px;">
       <el-col :span="24">
         <div class="grid-content bg-purple" type="margin-top:-10px">
           <div class="">
@@ -30,7 +30,7 @@
               :options="playerOptions"
             ></video-player>
           </div>
-          <div style="padding: 20px 15px" class="content">
+          <div style="padding: 20px 15px;margin-top:5px;" class="content">
             <h4>商家活动信息</h4>
             <p>
               {{ activeContent }}
@@ -101,7 +101,7 @@
   height: 50px;
 }
 .content {
-  background-color: rgb(253, 253, 253);
+  background-color: rgba(253, 253, 253, 1);
   opacity: 0.8;
 }
 .header-bg-color {
@@ -174,6 +174,7 @@ body {
 }
 .bg-purple {
   background: #d3dce6 !important;
+    /* background-color: rgb(22, 24, 35); */
 }
 .bg-purple-light {
   background: #e5e9f2 !important;
@@ -197,12 +198,11 @@ export default {
   components: {},
   data() {
     return {
-      url: "http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
-      url2: "../../assets/img/spark.jpg",
-      shop_name: "春哥新派铁板烧",
-      shop_desc: "铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
-      activeContent:
-        "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
+      enterpriseLogoUrl: "",//"http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
+      url2: "",//"../../assets/img/spark.jpg",
+      shop_name: "",//"春哥新派铁板烧",
+      shop_desc: "",//"铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
+      activeContent:"",// "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
       name: "BusImg",
       accessTk: "",
       code: "",
@@ -225,13 +225,12 @@ export default {
           {
             type: "",
             // src: "http://vjs.zencdn.net/v/oceans.mp4", //url地址
-            src: "http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
+            src: "",//"http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
             // "https://wds-service-1258344699.file.myqcloud.com/20/5771/mp4/161828221577098f7258cda150095.mp4",
             // src: "" //url地址
           },
         ],
-        poster:
-          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fxianfu%2Fd9d7438b9a262df6702709a2d59084a665729.jpg%2540700w_700h_1e_1c_1l%257Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622474659&t=c3416af905702ff342003ea89b1522a5", //你的封面地址
+        poster:"",//"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fxianfu%2Fd9d7438b9a262df6702709a2d59084a665729.jpg%2540700w_700h_1e_1c_1l%257Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622474659&t=c3416af905702ff342003ea89b1522a5", //你的封面地址
         // width: document.documentElement.clientWidth,
         notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
         controlBar: {
@@ -449,7 +448,8 @@ export default {
             this.videoTitle = res.text;
             this.activeContent = res.active_desc;
             this.playerOptions.sources[0].src = res.video_path;
-            this.playerOptions.poster = res.custom_cover_image_url;            
+            this.playerOptions.poster = res.custom_cover_image_url;    
+            this.enterpriseLogoUrl=res.enterprise_logo;        
           } else {
             this.loading = false;
             return false;
