@@ -54,7 +54,7 @@
             @click="startUp"
             >分享参与活动</el-button
           >
-          <el-button
+          <!-- <el-button
             type="danger"
             style="
               width: 80%;
@@ -64,8 +64,7 @@
             "
             icon="el-icon-share"
             @click="enterpriseVideoList"
-            >test</el-button
-          >
+            >test</el-button> -->
         </center>
       </el-col>
     </el-row>
@@ -278,7 +277,7 @@ export default {
         .dispatch("accessToken", paras)
         .then((res) => {
           if (res && res.message == "success") {
-            this.$toast.center("授权成功");
+            // this.$toast.center("授权成功");
             this.loading = false;
             this.accessTk = getItem("access_token");
             // this.$store
