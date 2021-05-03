@@ -6,7 +6,11 @@
         <div style="margin-top: 30px">
           <el-row>
             <el-col :span="4" :offset="1">
-              <el-avatar shape="square" :size="80" :src="enterpriseLogoUrl"></el-avatar>
+              <el-avatar
+                shape="square"
+                :size="80"
+                :src="enterpriseLogoUrl"
+              ></el-avatar>
             </el-col>
             <el-col :span="16" :offset="2">
               <div>
@@ -18,7 +22,7 @@
         </div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" style="margin-top: -20px;">
+    <el-row :gutter="20" style="margin-top: -20px">
       <el-col :span="24">
         <div class="grid-content bg-purple" type="margin-top:-10px">
           <div class="">
@@ -30,7 +34,7 @@
               :options="playerOptions"
             ></video-player>
           </div>
-          <div style="padding: 20px 15px;margin-top:5px;" class="content">
+          <div style="padding: 20px 15px; margin-top: 5px" class="content">
             <h4>商家活动信息</h4>
             <p>
               {{ activeContent }}
@@ -174,7 +178,7 @@ body {
 }
 .bg-purple {
   background: #d3dce6 !important;
-    /* background-color: rgb(22, 24, 35); */
+  /* background-color: rgb(22, 24, 35); */
 }
 .bg-purple-light {
   background: #e5e9f2 !important;
@@ -198,18 +202,19 @@ export default {
   components: {},
   data() {
     return {
-      enterpriseLogoUrl: "",//"http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
-      url2: "",//"../../assets/img/spark.jpg",
-      shop_name: "",//"春哥新派铁板烧",
-      shop_desc: "",//"铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
-      activeContent:"",// "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
+      enterpriseLogoUrl: "", //"http://rrtd.biezhenwenhua.com/uploads/images/01/Pr7k1dcI_Y.png",
+      url2: "", //"../../assets/img/spark.jpg",
+      shop_name: "", //"春哥新派铁板烧",
+      shop_desc: "", //"铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
+      activeContent: "", // "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
       name: "BusImg",
       accessTk: "",
       code: "",
+      profile_id:"",
       state: "",
       videoTitle: "",
-      videoUrl:"",
-      videoMask:"",
+      videoUrl: "",
+      videoMask: "",
       loading: false,
       // 视频播放
       playerOptions: {
@@ -225,12 +230,12 @@ export default {
           {
             type: "",
             // src: "http://vjs.zencdn.net/v/oceans.mp4", //url地址
-            src: "",//"http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
+            src: "", //"http://rrtd.biezhenwenhua.com/uploads/e/60/-dHoHe9eCt.mp4",
             // "https://wds-service-1258344699.file.myqcloud.com/20/5771/mp4/161828221577098f7258cda150095.mp4",
             // src: "" //url地址
           },
         ],
-        poster:"",//"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fxianfu%2Fd9d7438b9a262df6702709a2d59084a665729.jpg%2540700w_700h_1e_1c_1l%257Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622474659&t=c3416af905702ff342003ea89b1522a5", //你的封面地址
+        poster: "", //"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fxianfu%2Fd9d7438b9a262df6702709a2d59084a665729.jpg%2540700w_700h_1e_1c_1l%257Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622474659&t=c3416af905702ff342003ea89b1522a5", //你的封面地址
         // width: document.documentElement.clientWidth,
         notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
         controlBar: {
@@ -244,18 +249,30 @@ export default {
   },
   mounted() {
     this.loading = false;
-    this.getAccessToken();  
-    this.enterpriseVideoList();     
+    this.getAccessToken();
+    this.enterpriseVideoList();
   },
   beforeCreate() {
     //beforeCreate()，created(), beforeMount(), mounted() 都可以
     // this.getAccessToken();
   },
-  created(){  
-  
-  },
+  created() {},
   computed: {},
   methods: {
+    // 跳转到用户中心
+    gotoProfile(profileId) {
+      if(!profileId)
+      {
+        // this.$toast.center("授权成功");
+        return;
+      }
+      // profileId = "96798051291";
+      let url =
+        "snssdk1128://user/profile/" +
+        profileId +
+        "?refer=web&gd_label=click_wap_profile_bottom&type=need_follow&needlaunchlog=1";
+      window.location.href = url;
+    },
     getAccessToken() {
       // document.title = "xxx";
       this.code = utils.getUrlKey("code");
@@ -339,7 +356,7 @@ export default {
         .then((res) => {
           if (res && res.data.error_code == 0) {
             // this.videoList();
-                  this.createVideo();
+            this.createVideo();
           } else if (res && res.data.error_code == 2190008) {
             //access_token过期
             // this.getAccessToken();
@@ -389,6 +406,7 @@ export default {
         .then((res) => {
           if (res && res.data) {
             this.$toast.center("分享成功");
+            this.gotoProfile(this.profile_id);
             //打开用户中心
           } else if (res && res.data.error_code == 2190008) {
             //access_token过期
@@ -442,14 +460,15 @@ export default {
       this.$store
         .dispatch("enterpriseVideoList", paras)
         .then((res) => {
-          if (res) {            
+          if (res) {
             this.shop_name = res.enterprise_name;
             this.shop_desc = res.enterprise_desc;
             this.videoTitle = res.text;
             this.activeContent = res.active_desc;
             this.playerOptions.sources[0].src = res.video_path;
-            this.playerOptions.poster = res.custom_cover_image_url;    
-            this.enterpriseLogoUrl=res.enterprise_logo;        
+            this.playerOptions.poster = res.custom_cover_image_url;
+            this.enterpriseLogoUrl = res.enterprise_logo;
+            this.profile_id=res.profile_id;
           } else {
             this.loading = false;
             return false;
