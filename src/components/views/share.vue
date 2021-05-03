@@ -31,7 +31,7 @@
             ></video-player>
           </div>
           <div style="padding: 20px 15px" class="content">
-            <h4 v-text="active_title"></h4>
+            <h4>商家活动信息</h4>
             <p>
               {{ activeContent }}
             </p>
@@ -51,8 +51,20 @@
               border-color: rgb(252, 62, 90);
             "
             icon="el-icon-share"
-            @click="show"
+            @click="startUp"
             >分享参与活动</el-button
+          >
+          <el-button
+            type="danger"
+            style="
+              width: 80%;
+              margin-bottom: 15px;
+              background-color: rgb(252, 62, 90);
+              border-color: rgb(252, 62, 90);
+            "
+            icon="el-icon-share"
+            @click="enterpriseVideoList"
+            >test</el-button
           >
         </center>
       </el-col>
@@ -181,6 +193,7 @@ body {
 <script>
 import md5 from "js-md5";
 import utils from "../../assets/js/utils";
+import { setItem, getItem, remItem } from "../../utils/com";
 export default {
   components: {},
   data() {
@@ -189,13 +202,15 @@ export default {
       url2: "../../assets/img/spark.jpg",
       shop_name: "春哥新派铁板烧",
       shop_desc: "铁板烧,铁板烧,一天不吃,想的发烧,一吃铁板烧,马上就退烧",
-      active_title: "商家优惠信息",
       activeContent:
         "点击下方发布按钮转发探店视频，即可向前台领取精美礼品+12.8元霸王餐抵用券（消费任意金额均可使用）",
       name: "BusImg",
-      accessTk:"",
+      accessTk: "",
       code: "",
       state: "",
+      videoTitle: "",
+      videoUrl:"",
+      videoMask:"",
       loading: false,
       // 视频播放
       playerOptions: {
@@ -231,34 +246,226 @@ export default {
   },
   mounted() {
     this.loading = false;
-    // document.title = "xxx";
-    this.code = utils.getUrlKey("code");
-    this.state = utils.getUrlKey("state");
-    console.log("code:" + this.code);
-    console.log("state:" + this.state);
-
-    this.$store
-      .dispatch("accessToken", this.code )
-      .then((res) => {
-        if (res && res.message == "success") {
-          this.$toast.center("授权成功");
-          this.loading = false;
-          this.accessTk=this.$getItem('access_token');
-          // this.$store
-            // .dispatch("MenuList", { userId: res.resObj.userId })
-            // .then((res) => {});
-          // this.$link("/home");
-        } else {
-          this.loading = false;
-          return false;
-        }
-      })
-      .catch((res) => {
-        this.loading = false;
-      });
+    this.getAccessToken();  
+    this.enterpriseVideoList();     
+  },
+  beforeCreate() {
+    //beforeCreate()，created(), beforeMount(), mounted() 都可以
+    // this.getAccessToken();
+  },
+  created(){  
+  
   },
   computed: {},
   methods: {
+    getAccessToken() {
+      // document.title = "xxx";
+      this.code = utils.getUrlKey("code");
+      this.dyCallstate = utils.getUrlKey("state");
+      console.log("code:" + this.code);
+      console.log("state:" + this.dyCallstate);
+
+      setItem("lastCode", this.code);
+      let useCode = getItem("code");
+      if (this.code == useCode) {
+        return;
+      }
+      setItem("code", this.code);
+
+      let paras = { code: this.code };
+
+      this.$store
+        .dispatch("accessToken", paras)
+        .then((res) => {
+          if (res && res.message == "success") {
+            this.$toast.center("授权成功");
+            this.loading = false;
+            this.accessTk = getItem("access_token");
+            // this.$store
+            // .dispatch("MenuList", { userId: res.resObj.userId })
+            // .then((res) => {});
+            // this.$link("/home");
+          } else if (res.data.error_code == 10007) {
+            //code 过期
+            return;
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+        });
+    },
+    userInfo() {
+      let paras = {
+        openId: getItem("open_id"),
+        accessToken: getItem("access_token"),
+      };
+      this.$store
+        .dispatch("userInfo", paras)
+        .then((res) => {
+          if (res && res.message == "success") {
+            // this.$toast.center("授权成功");
+            this.loading = false;
+            console.log(res);
+            this.$toast.center(res);
+          } else if (res && res.data.error_code == 2190008) {
+            //access_token过期
+            // this.getAccessToken();
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+        });
+    },
+
+    uploadVideo() {
+      let paras = {
+        path: this.playerOptions.sources[0].src,
+        openId: getItem("open_id"),
+        accessToken: getItem("access_token"),
+      };
+
+      if (!paras || !paras.path) {
+        this.$toast.center("path不能为空");
+        return;
+      }
+      setItem("video.video_id", "");
+
+      this.$store
+        .dispatch("uploadVideo", paras)
+        .then((res) => {
+          if (res && res.data.error_code == 0) {
+            // this.videoList();
+                  this.createVideo();
+          } else if (res && res.data.error_code == 2190008) {
+            //access_token过期
+            // this.getAccessToken();
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+          return;
+        });
+    },
+
+    createVideo() {
+      let getPara = {
+        openId: getItem("open_id"),
+        accessToken: getItem("access_token"),
+      };
+      let postPara = {
+        videoId: getItem("video.video_id"),
+        text: this.videoTitle,
+        // poiId: null,
+        // poiName: null,
+        // microAppId: null,
+        // microAppTitle: null,
+        // microAppUrl: null,
+        // articleId: null,
+        // articleTitle: null,
+        // timelinessLabel: null,
+        // timelinessKeyword: null,
+        // gameId: null,
+        // gameContent: null,
+        coverTsp: 5,
+        // atUsers: null,
+      };
+      if (!getPara || !postPara || !postPara.videoId) {
+        this.$toast.center("videoId不能为空");
+        return;
+      }
+      let paras = {
+        getParas: getPara,
+        postParas: postPara,
+      };
+      this.$store
+        .dispatch("createVideo", paras)
+        .then((res) => {
+          if (res && res.data) {
+            this.$toast.center("分享成功");
+            //打开用户中心
+          } else if (res && res.data.error_code == 2190008) {
+            //access_token过期
+            // this.getAccessToken();
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+          return;
+        });
+    },
+
+    videoList() {
+      let paras = {
+        openId: getItem("open_id"),
+        accessToken: getItem("access_token"),
+        pageNum: 0,
+        pageSize: 20,
+      };
+      this.$store
+        .dispatch("videoList", paras)
+        .then((res) => {
+          if (res && res.data.error_code == 0) {
+            let viedeoList = res.data.list;
+            let rnd = Math.floor(Math.random() * (viedeoList.length - 1) + 1);
+            let itemVideo = viedeoList[rnd];
+            this.createVideo(itemVideo.item_id);
+            this.$toast.center("分享成功");
+            console.log(res);
+            //打开用户中心
+          } else if (res && res.data.error_code == 2190008) {
+            //access_token过期
+            // this.getAccessToken();
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+        });
+    },
+
+    enterpriseVideoList() {
+      let paras = {
+        enterpriseCode: this.dyCallstate, // "A0001",
+      };
+      this.$store
+        .dispatch("enterpriseVideoList", paras)
+        .then((res) => {
+          if (res) {            
+            this.shop_name = res.enterprise_name;
+            this.shop_desc = res.enterprise_desc;
+            this.videoTitle = res.text;
+            this.activeContent = res.active_desc;
+            this.playerOptions.sources[0].src = res.video_path;
+            this.playerOptions.poster = res.custom_cover_image_url;            
+          } else {
+            this.loading = false;
+            return false;
+          }
+        })
+        .catch((res) => {
+          this.loading = false;
+        });
+    },
+
+    startUp() {
+      // this.enterpriseVideoList();
+      this.uploadVideo();
+      // this.createVideo();
+    },
     toHome() {
       this.$router.push("/index");
       // this.$link("/index");
@@ -277,7 +484,7 @@ export default {
           this.ruleForm.password = md5(this.ruleForm.password);
           // 以下仅本地测试
           this.getInfoes.userName = this.ruleForm.userName;
-          this.$setItem("getInfo", this.getInfoes);
+          setItem("getInfo", this.getInfoes);
           this.$store.commit("SET_GETINFO", this.getInfoes);
           this.loading = false;
           this.$link("/home");

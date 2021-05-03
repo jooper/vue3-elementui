@@ -21,15 +21,15 @@ export const formatDate = ((value) => {
 
 // 清除首尾空的字符串
 export const trim = ((val) => {
-    return val&&val.replace(/\s/g, "").toLowerCase();
+    return val && val.replace(/\s/g, "").toLowerCase();
 })
 
 // 路由跳转
 export const link = ((url) => {
-    if(!url){return}
-    if(/^http/.test(url)){
+    if (!url) { return }
+    if (/^http/.test(url)) {
         window.open(url);
-    }else{
+    } else {
         router.push(url);
     }
 })
@@ -50,46 +50,64 @@ export const imgBg = ((url) => {
 })
 
 // 存值
-export const setItem = ((key, value) =>{
-    if(typeof value === 'string'){
+export const setItem = ((key, value) => {
+    if (typeof value === 'string') {
         localStorage.setItem(key, value);
-    }else{
+    } else {
         localStorage.setItem(key, JSON.stringify(value));
     }
 })
 
 // 取值
-export const getItem = ((key) =>{
-    return key&&JSON.parse(localStorage.getItem(key)) || null;
+export const getItem = ((key) => {
+    // return key&&JSON.parse(localStorage.getItem(key)) || null;
+    return key && localStorage.getItem(key) || null;
 })
 // 删值
-export const remItem = ((key) =>{
-    if(key){
+export const remItem = ((key) => {
+    if (key) {
         localStorage.removeItem(key);
-    }else{
+    } else {
         localStorage.clear();
     }
 })
 
 // get
-export const get = ((url, param) =>{
-    if(param){
-        let nd="?";
+export const get = ((url, param) => {
+    if (param) {
+        let nd = "?";
         let xx = Object.entries(param);
         xx.forEach((val) => {
-            if(val[1] || val[1] == 0){
-                nd+=val[0]+'='+val[1]+'&'
+            if (val[1] || val[1] == 0) {
+                nd += val[0] + '=' + val[1] + '&'
             }
         });
-        // url = url+nd.replace(/&$/,'');
-        url = url +param;
+        url = url + nd.replace(/&$/, '');
+        // url = url +param;
     }
-    return request({url: url, method: 'get'})
+    return request({ url: url, method: 'get' })
 })
 
 // post
-export const post = ((url, param) =>{
-    if(param){
-        return request({url: url, method: 'post',data: param})
+export const post = ((url, param) => {
+    if (param) {
+        return request({ url: url, method: 'post', data: param })
+    }
+})
+
+
+export const get_post = ((url, getPara, postPara) => {
+    if (getPara) {
+        let nd = "?";
+        let xx = Object.entries(getPara);
+        xx.forEach((val) => {
+            if (val[1] || val[1] == 0) {
+                nd += val[0] + '=' + val[1] + '&'
+            }
+        });
+        url = url + nd.replace(/&$/, '');
+    }
+    if (postPara) {
+        return request({ url: url, method: 'post', data: postPara })
     }
 })

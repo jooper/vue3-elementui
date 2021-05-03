@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
-import { post, get, setItem, getItem, remItem } from './com'
+import { post, get, get_post,setItem, getItem, remItem } from './com'
 
 Vue.use(Vuex)
 
@@ -29,9 +29,9 @@ const store = new Vuex.Store({
     },
     actions: {
         // 账户登录
-        accessToken({ commit }, code) {
+        accessToken({ commit }, paras) {
             return new Promise((resolve, reject) => {
-                get('app/code/accessToken?code=', code).then(res => {
+                get('app/code/accessToken', paras).then(res => {
                     if (res && res.message == "success") {
                         setItem('access_token', res.data.access_token);
                         setItem('open_id', res.data.open_id);
@@ -44,7 +44,83 @@ const store = new Vuex.Store({
                     reject(error)
                 })
             })
+        },        
+
+        uploadVideo({ commit }, paras) {
+            return new Promise((resolve, reject) => {
+                post('app/video/uploadVideo', paras).then(res => {
+                    if (res && res.data.video) {
+                        setItem('video.video_id',res.data.video.video_id);                
+                        setItem('video.width', res.data.video.width);            
+                        setItem('video.height', res.data.video.height);            
+                    }
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
         },
+
+        createVideo({ commit },paras) {
+            return new Promise((resolve, reject) => {
+                let getParas=paras.getParas;
+                let postParas=paras.postParas;
+                get_post('app/video/createVideo', getParas,postParas).then(res => {
+                    if (res &&res.data.video) {
+                        setItem('video_uped.item_id', res.data.item_id);   
+                    }
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+        
+
+
+        videoList({ commit }, paras) {
+            return new Promise((resolve, reject) => {
+                get('app/video/videoList', paras).then(res => {
+                    // if (res &&res.data.error_code!=0) {                  
+                      
+                    // }
+                    resolve(res);
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+
+
+        enterpriseVideoList({ commit }, paras) {
+            return new Promise((resolve, reject) => {
+                get('app/video/getEnterpriseVideos', paras).then(res => {
+                    // if (res &&res.data.error_code!=0) {                  
+                      
+                    // }
+                    resolve(res);
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+
+
+
+        userInfo({ commit }, paras) {
+            return new Promise((resolve, reject) => {
+                get('app/user/info', paras).then(res => {
+                    if (res && res.message == "success") {
+                        setItem('access_token', res.data.access_token);                
+                    }
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+
+
         // 账户登录
         Login({ commit }, userInfo) {
             return new Promise((resolve, reject) => {
