@@ -237,7 +237,7 @@ export default {
         ],
         poster: "", //"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fxianfu%2Fd9d7438b9a262df6702709a2d59084a665729.jpg%2540700w_700h_1e_1c_1l%257Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622474659&t=c3416af905702ff342003ea89b1522a5", //你的封面地址
         // width: document.documentElement.clientWidth,
-        notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        notSupportedMessage: " ",//"此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
         controlBar: {
           timeDivider: true,
           durationDisplay: true,
