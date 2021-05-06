@@ -120,6 +120,15 @@ const store = new Vuex.Store({
             })
         },
 
+        publish({ commit }, paras) {
+            return new Promise((resolve, reject) => {
+                post('app/video/publish', paras).then(res => {                   
+                    resolve(res);
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
 
         // 账户登录
         Login({ commit }, userInfo) {
