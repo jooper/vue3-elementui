@@ -10,6 +10,13 @@
                   <div class="line-dec"></div>
                   <!-- <span>让每个商家都有大众能看到的潮品 &amp; </span> -->               
                   <span>民以食为天，食以佳为美；觅食--传递身边美好的味道！</span>
+                  <div style="padding-top:30px">
+                         <!-- <p>顾客扫描商家抖音码并一键发布商家视频，商家获得快速曝光。</p> -->
+                      <p>顾客扫描商家抖音码，一键发布商家视频，商家获得快速<font style="color: red;">曝光</font></p>
+                    <!-- 顾客扫描商家抖音二维码，一键发布商家宣传视频，帮助商家在抖音平台上获得快速曝光，
+                    宣传视频在顾客粉丝间传播，获得大量本地流量 -->
+                    
+                    </div>
                   <!-- <div>code is :{{code}}</div>
                   <div>state is :{{state}}</div> -->
                 </div>
@@ -48,7 +55,7 @@
                     <img src="../../assets/img/dy/dpbq.png" alt="" style="width: 90px;height: 90px;">
                   </div>
                   <h4>标记商家位置</h4>
-                  <p>分享的视频信息，带有商家精准位置信息，使潜在客户可以准确的获得商家的准确位置</p>
+                  <p>分享的视频信息带有商家精准位置信息，潜在客户可直接定位都商家地理位置</p>
                 </div>  
               </div>
               <div class="col-md-3 col-sm-6">
@@ -74,7 +81,7 @@
                   <img src="../../assets/img/splb.png" alt="">
                 </div>
                 <div class="right-text col-md-8">
-                  <h4>视频裂变式传播<br><em>-抖音用户扫描商家抖音二维码，一键转发商家宣传视频，能让商家在短时间内获得大量的快速曝光，获得更多的流量，带来更多的客人</em></h4>
+                  <h4>视频裂变式传播<br><em>-抖音用户扫描商家抖音二维码，一键转发商家宣传视频，能让商家在短时间内获得大量的快速曝光，获得更多的流量，带来更多的顾客</em></h4>
                   <!-- <p>商家可以用自己也有的短视频，或者我司专门定制化短视.</p> -->
                 </div>
               </div>
@@ -93,7 +100,7 @@
                     <img src="../../assets/img/dy/sm.png" alt="" style="width: 90px;height: 90px;">
                   </div>
                   <h4>扫码</h4>
-                  <p>客人用抖音APP扫描商家抖音二维码.</p>
+                  <p>顾客用抖音APP扫描商家抖音二维码.</p>
                 </div>
               </div>
               <div class="col-md-3 col-sm-6">
@@ -111,7 +118,7 @@
                     <img src="../../assets/img/dy/zdbg.png" alt="" style="width: 90px;height: 90px;">
                   </div>
                   <h4>自动曝光</h4>
-                  <p>每个客人转发的短视频在抖音平台中，最低曝光300~500次;如2个客人视频将曝光600~1000次，以此类推</p>
+                  <p>每个顾客转发的短视频在抖音平台中，最低曝光300~500次;如2个顾客视频将曝光600~1000次，以此类推</p>
                 </div>  
               </div>
               <div class="col-md-3 col-sm-6">
@@ -120,7 +127,7 @@
                     <img src="../../assets/img/dy/jzyh.png" alt="" style="width: 90px;height: 90px;">
                   </div>
                   <h4>带来精准客源</h4>
-                  <p>客人的周边人群将发现店家的宣传视频，获取更多的潜在精准客户</p>
+                  <p>顾客的周边人群将发现店家的宣传视频及基于高德地图的准确地理位置，获取更多的潜在精准客户</p>
                 </div>
               </div>
             </div>
