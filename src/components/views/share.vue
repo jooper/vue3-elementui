@@ -251,8 +251,8 @@ export default {
   },
   mounted() {
     this.loading = false;
-    this.getAccessToken();
-    this.enterpriseVideoList();
+    this.getAccessToken();  //获取权限，用code去换取accessToken
+    this.enterpriseVideoList();  //加载商家随机视频
   },
   beforeCreate() {
     //beforeCreate()，created(), beforeMount(), mounted() 都可以

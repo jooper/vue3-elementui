@@ -91,7 +91,7 @@ const store = new Vuex.Store({
             })
         },
 
-
+        
         enterpriseVideoList({ commit }, paras) {
             return new Promise((resolve, reject) => {
                 get('app/video/getEnterpriseVideos', paras).then(res => {
